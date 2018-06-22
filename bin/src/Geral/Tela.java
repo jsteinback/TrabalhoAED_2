@@ -2,6 +2,8 @@ package Geral;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -11,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Tela extends JFrame {
 
@@ -83,7 +83,7 @@ public class Tela extends JFrame {
 		btnProcessar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				EnumAcao acao = rdbtnCompactar. ? EnumAcao.COMPACTAR : EnumAcao.DESCOMPACTAR;
+				EnumAcao acao = rdbtnCompactar.getBoolean() ? EnumAcao.COMPACTAR : EnumAcao.DESCOMPACTAR;
 
 				main.Processar(pathOrigem, pathDestino, acao);
 			}
