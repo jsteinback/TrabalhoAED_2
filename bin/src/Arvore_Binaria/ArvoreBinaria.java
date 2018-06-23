@@ -43,7 +43,7 @@ public class ArvoreBinaria<T> {
 		return arvorePre(raiz);
 	}
 
-	public String arvorePre(NoArvoreBinaria<T> no) {
+	private String arvorePre(NoArvoreBinaria<T> no) {
 		if (no == null) {
 			return "<>";
 		} else {

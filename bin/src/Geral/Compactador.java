@@ -11,14 +11,45 @@ public class Compactador {
 	private ArvoreBinaria<Letra>[] vetorArvores;
 	private int indiceVetorArvores = 0;
 
-	public void executar(String pathOrigem, String pathDestino) {
+	public ArvoreBinaria<Letra> executar(String pathOrigem, String pathDestino) {
+		// TODO montar leitura do arquivo.
+		montarTabelaDeCodificacao(teste);
+		transformarEmBinario(teste, pathDestino);
 
-		// 1 passo
-		String[] vetorStringLetras = teste.split("");
+		return vetorArvores[0];
+	}
+
+	private void transformarEmBinario(String textoDocumento, String PathDestino) {
+		String[] vetorStringLetras = textoDocumento.split("");
+		String valorEmBinario = "";
+
+		for (String letra : vetorStringLetras) {
+			valorEmBinario = criptografarLetra(letra);
+		}
+
+		// TODO criar novo arquivo txt com 'valorEmBinario'
+	}
+
+	public String criptografarLetra(String letra) {
+		NoArvoreBinaria<Letra> p = vetorArvores[0].getRaiz();
+		String letraBinario = "";
+
+		while ((p != null) && (p.getInfo().getLetra() != letra)) {
+			if (letra.equals(p.getInfo().getLetra())) {
+				p = p.getEsquerda();
+				letraBinario += "0";
+			} else {
+				p = p.getDireita();
+				letraBinario += "1";
+			}
+		}
+		return letraBinario;
+	}
+
+	private void montarTabelaDeCodificacao(String textoDocumento) {
+		String[] vetorStringLetras = textoDocumento.split("");
 		Letra[] vetorLetras = preparaVetorLetras(vetorStringLetras);
 		preparaVetorArvores(vetorLetras);
-
-		// 2 passo
 		juntarArvores();
 	}
 
