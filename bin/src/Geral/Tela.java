@@ -83,9 +83,9 @@ public class Tela extends JFrame {
 		btnProcessar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				EnumAcao acao = rdbtnCompactar.getBoolean() ? EnumAcao.COMPACTAR : EnumAcao.DESCOMPACTAR;
+				EnumAcao acao = rdbtnCompactar.isSelected() ? EnumAcao.COMPACTAR : EnumAcao.DESCOMPACTAR;
 
-				main.Processar(pathOrigem, pathDestino, acao);
+				main.Processar(textField.getText(), textField_1.getText(), acao);
 			}
 		});
 		btnProcessar.setBounds(183, 256, 89, 23);

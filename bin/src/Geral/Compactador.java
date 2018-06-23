@@ -13,9 +13,37 @@ public class Compactador {
 
 	public void executar(String pathOrigem, String pathDestino) {
 
+		// 1 passo
 		String[] vetorStringLetras = teste.split("");
 		Letra[] vetorLetras = preparaVetorLetras(vetorStringLetras);
 		preparaVetorArvores(vetorLetras);
+
+		// 2 passo
+		juntarArvores();
+	}
+
+	private void juntarArvores() {
+		ArvoreBinaria<Letra> t1;
+		ArvoreBinaria<Letra> t2;
+
+		for (int i = 0; i < indiceVetorArvores; i++) {
+			if (vetorArvores[i] != null) {
+				t1 = vetorArvores[0];
+				t2 = vetorArvores[i];
+
+				ArvoreBinaria<ArvoreBinaria<Letra>> tr = new ArvoreBinaria<>();
+				Letra letraRaiz = new Letra(null, t1.getRaiz().getInfo().getPeso() + t2.getRaiz().getInfo().getPeso());
+				ArvoreBinaria<Letra> infoRaiz = new ArvoreBinaria<Letra>();
+				infoRaiz.setRaiz(new NoArvoreBinaria<Letra>(letraRaiz));
+
+				NoArvoreBinaria<ArvoreBinaria<Letra>> no = new NoArvoreBinaria<ArvoreBinaria<Letra>>(infoRaiz,
+						new NoArvoreBinaria<ArvoreBinaria<Letra>>(t1), new NoArvoreBinaria<ArvoreBinaria<Letra>>(t2));
+				tr.setRaiz(no);
+				vetorArvores[0] = tr.getRaiz().getInfo();
+				vetorArvores[i] = null;
+			}
+		}
+
 	}
 
 	private Letra[] preparaVetorLetras(String[] vetorStringLetras) {
