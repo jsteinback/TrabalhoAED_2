@@ -16,26 +16,45 @@ public class Compactador {
 		String[] vetorStringLetras = teste.split("");
 		Letra[] vetorLetras = preparaVetorLetras(vetorStringLetras);
 		preparaVetorArvores(vetorLetras);
-
 	}
 
 	private Letra[] preparaVetorLetras(String[] vetorStringLetras) {
 		Letra[] vetorLetras = new Letra[vetorStringLetras.length];
 		boolean repetido = false;
 
-		for (String strLetra : vetorStringLetras) {
+		for (int i = 0; i < vetorStringLetras.length; i++) {
 			for (Letra objLetra : vetorLetras) {
-				if (objLetra.getLetra().equals(strLetra)) {
+				if (objLetra.getLetra().equals(vetorStringLetras[i])) {
 					repetido = true;
 				}
 			}
 
 			if (!repetido) {
-				vetorLetras[indiceVetorArvores] = new Letra(strLetra, buscarPeso(strLetra, vetorStringLetras));
+				Letra novaLetra = new Letra(vetorStringLetras[i], buscarPeso(vetorStringLetras[i], vetorStringLetras));
+				adicionarOrdenado(novaLetra, vetorLetras);
 			}
 		}
 
 		return vetorLetras;
+	}
+
+	private void adicionarOrdenado(Letra novaLetra, Letra[] vetorLetras) {
+		if (vetorLetras[0] == null) {
+			vetorLetras[0] = novaLetra;
+		} else {
+			for (int j = 0; j < vetorLetras.length; j++) {
+				if (vetorLetras[j] == null) {
+					vetorLetras[j] = novaLetra;
+					break;
+				} else if (vetorLetras[j + 1] == null) {
+					vetorLetras[j + 1] = novaLetra;
+				} else if (vetorLetras[j].getPeso() > novaLetra.getPeso()) {
+					Letra letraCoringa = vetorLetras[j];
+					vetorLetras[j] = novaLetra;
+					adicionarOrdenado(letraCoringa, vetorLetras);
+				}
+			}
+		}
 	}
 
 	private void preparaVetorArvores(Letra[] vetorLetras) {
