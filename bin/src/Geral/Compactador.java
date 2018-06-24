@@ -24,7 +24,7 @@ public class Compactador {
 		String valorEmBinario = "";
 
 		for (String letra : vetorStringLetras) {
-			valorEmBinario = criptografarLetra(letra);
+			valorEmBinario += criptografarLetra(letra);
 		}
 
 		// TODO criar novo arquivo txt com 'valorEmBinario'
